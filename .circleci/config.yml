@@ -78,6 +78,7 @@ workflows:
       - hmpps/build_docker:
           image_name: example_image_name
           publish: false
+          dockerfile_dir: tests
           snyk-scan: true
           snyk-threshold: medium
           snyk-fail-build: false
