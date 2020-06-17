@@ -83,7 +83,6 @@ workflows:
           snyk-fail-build: false
 
       - hmpps/deploy_env:
-          name: test_helm_deploy
           env: "test"
           chart_name: test-chart
           helm_dir: tests
