@@ -86,7 +86,7 @@ workflows:
       - hmpps/deploy_env:
           env: "test"
           chart_name: test-chart
-          helm_dir: tests
+          helm_dir: tests/helm_deploy
           helm_additional_args: "--dry-run --debug"
           retrieve_secrets: "none"
           requires:

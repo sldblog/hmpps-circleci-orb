@@ -16,9 +16,6 @@ parameters:
   helm_dir:
     type: string
     default: helm_deploy
-  helm_values_file:
-    type: string
-    default: "values-<< parameters.env >>.yaml"
   slack_notification:
     type: boolean
     default: false
@@ -45,14 +42,14 @@ steps:
           aws secretsmanager get-secret-value --secret-id ${AWS_SECRET_NAME} | jq -r .SecretString | \
           helm upgrade << parameters.release_name >> << parameters.chart_name >> \
             --install --wait --reset-values --timeout 5m --history-max 10 \
-            --values << parameters.helm_values_file >> \
+            --values values-<< parameters.env >>.yaml \
             --values - \
             --set image.tag="${APP_VERSION}" \
             << parameters.helm_additional_args >>
         else
           helm upgrade << parameters.release_name >> << parameters.chart_name >> \
             --install --wait --reset-values --timeout 5m --history-max 10 \
-            --values << parameters.helm_values_file >> \
+            --values values-<< parameters.env >>.yaml \
             --set image.tag="${APP_VERSION}" \
             << parameters.helm_additional_args >>
         fi
