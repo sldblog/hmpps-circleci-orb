@@ -105,7 +105,8 @@ workflows:
           fail-if-semver-not-indicated: false
           publish-version-tag: false
           requires:
-            - integration-tests
+            - hmpps/build_docker
+            - hmpps/deploy_env
           filters:
             branches:
               only: master
