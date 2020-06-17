@@ -82,6 +82,14 @@ workflows:
           snyk-threshold: medium
           snyk-fail-build: false
 
+      - hmpps/deploy_env:
+          name: test_helm_deploy
+          env: "test"
+          chart_name: test-chart
+          helm_dir: tests
+          helm_additional_args: "--dry-run --debug"
+          retrieve_secrets: "none"
+
       # publish a semver version of the orb. relies on
       # the commit subject containing the text "[semver:patch|minor|major|skip]"
       # as that will determine whether a patch, minor or major
@@ -92,7 +100,7 @@ workflows:
           orb-name: ministryofjustice/hmpps
 
           add-pr-comment: false
-          fail-if-semver-not-indicated: true
+          fail-if-semver-not-indicated: false
           publish-version-tag: false
           requires:
             - integration-tests
