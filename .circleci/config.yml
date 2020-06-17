@@ -25,12 +25,10 @@ jobs:
   # Rename this job and add more as needed.
   #
 
-  integration-tests:
-    executor: orb-tools/ubuntu
-    steps:
-      - hmpps/install_aws_cli
-      - hmpps/install_helm
-      - hmpps/k8s_setup
+  #integration-tests:
+  #  executor: orb-tools/ubuntu
+  #  steps:
+  #    - hmpps/command_to_test
 
 
 workflows:
@@ -74,7 +72,8 @@ workflows:
       # your integration test jobs go here: essentially, run all your orb's
       # jobs and commands to ensure they behave as expected. or, run other
       # integration tests of your choosing
-      - integration-tests
+      
+      #- integration-tests
 
       - hmpps/build_docker:
           image_name: example_image_name
@@ -90,6 +89,8 @@ workflows:
           helm_dir: tests
           helm_additional_args: "--dry-run --debug"
           retrieve_secrets: "none"
+          requires:
+            - hmpps/build_docker
 
       # publish a semver version of the orb. relies on
       # the commit subject containing the text "[semver:patch|minor|major|skip]"
